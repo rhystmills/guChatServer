@@ -1,7 +1,7 @@
 /* eslint-disable consistent-return */
 
 import crypto from "crypto-extra";
-import Users from "./index";
+import Users from "./index.js";
 
 const setTokenOnUser = (emailAddress = "", token = "") => {
   try {

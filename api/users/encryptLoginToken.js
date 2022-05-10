@@ -2,8 +2,8 @@
 
 import jwt from "jsonwebtoken";
 import dayjs from "dayjs";
-import formatErrorString from "../../lib/formatErrorString";
-import settings from "../../lib/settings";
+import formatErrorString from "../../lib/formatErrorString.js";
+import settings from "../../lib/settings.js";
 
 const validateOptions = (options) => {
   try {

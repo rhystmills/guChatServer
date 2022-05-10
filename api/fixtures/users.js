@@ -1,5 +1,5 @@
-import Users from "../users";
-import signup from "../users/signup";
+import Users from "../users/index.js";
+import signup from "../users/signup.js";
 
 const users = [
   {

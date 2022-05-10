@@ -1,7 +1,7 @@
 /* eslint-disable consistent-return */
 
-import Users from "./index";
-import formatErrorString from "../../lib/formatErrorString";
+import Users from "./index.js";
+import formatErrorString from "../../lib/formatErrorString.js";
 
 const getUser = (emailAddress = "", password = "") => {
   try {

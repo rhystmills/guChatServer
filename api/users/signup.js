@@ -1,10 +1,10 @@
 /* eslint-disable consistent-return */
 
-import Users from "./index";
-import hashString from "./hashString";
-import encryptLoginToken from "./encryptLoginToken";
-import generateId from "../../lib/generateId";
-import formatErrorString from "../../lib/formatErrorString";
+import Users from "./index.js";
+import hashString from "./hashString.js";
+import encryptLoginToken from "./encryptLoginToken.js";
+import generateId from "../../lib/generateId.js";
+import formatErrorString from "../../lib/formatErrorString.js";
 
 const addSessionToUser = (userId = null, session = null) => {
   try {

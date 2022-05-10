@@ -1,6 +1,6 @@
-import Documents from "../index";
-import generateId from "../../../lib/generateId";
-import isDocumentOwner from "../../../lib/isDocumentOwner";
+import Documents from "../index.js";
+import generateId from "../../../lib/generateId.js";
+import isDocumentOwner from "../../../lib/isDocumentOwner.js";
 
 export default {
   createDocument: async (parent, args, context) => {

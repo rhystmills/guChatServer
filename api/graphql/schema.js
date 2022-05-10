@@ -1,13 +1,13 @@
 import gql from "graphql-tag";
 import { makeExecutableSchema } from "@graphql-tools/schema";
 
-import DocumentTypes from "../documents/graphql/types";
-import DocumentQueries from "../documents/graphql/queries";
-import DocumentMutations from "../documents/graphql/mutations";
+import DocumentTypes from "../documents/graphql/types.js";
+import DocumentQueries from "../documents/graphql/queries.js";
+import DocumentMutations from "../documents/graphql/mutations.js";
 
-import UserTypes from "../users/graphql/types";
-import UserQueries from "../users/graphql/queries";
-import UserMutations from "../users/graphql/mutations";
+import UserTypes from "../users/graphql/types.js";
+import UserQueries from "../users/graphql/queries.js";
+import UserMutations from "../users/graphql/mutations.js";
 
 const schema = {
   typeDefs: gql`

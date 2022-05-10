@@ -1,8 +1,8 @@
 import { ApolloServer } from "apollo-server-express";
-import schema from "./schema";
-import { isDevelopment } from "../../.app/environment";
-import loginWithToken from "../users/token";
-import { configuration as corsConfiguration } from "../../middleware/cors";
+import schema from "./schema.js";
+import { isDevelopment } from "../../.app/environment.js";
+import loginWithToken from "../users/token.js";
+import { configuration as corsConfiguration } from "../../middleware/cors.js";
 
 export default async (app) => {
   const server = new ApolloServer({

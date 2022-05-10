@@ -1,4 +1,4 @@
-import graphql from "./graphql/server";
+import graphql from "./graphql/server.js";
 
 export default (app) => {
   graphql(app);

@@ -1,5 +1,5 @@
-import isDocumentOwner from "../../../lib/isDocumentOwner";
-import Documents from "../index";
+import isDocumentOwner from "../../../lib/isDocumentOwner.js";
+import Documents from "../index.js";
 
 export default {
   documents: async (parent, args, context) => {

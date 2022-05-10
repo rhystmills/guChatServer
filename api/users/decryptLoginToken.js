@@ -1,8 +1,8 @@
 /* eslint-disable consistent-return */
 
 import jwt from "jsonwebtoken";
-import formatErrorString from "../../lib/formatErrorString";
-import settings from "../../lib/settings";
+import formatErrorString from "../../lib/formatErrorString.js";
+import settings from "../../lib/settings.js";
 
 const validateOptions = (options) => {
   try {

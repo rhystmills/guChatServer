@@ -1,10 +1,10 @@
 /* eslint-disable consistent-return */
 
 import bcrypt from "bcrypt";
-import Users from "./index";
-import encryptLoginToken from "./encryptLoginToken";
-import getExistingUserByEmail from "./getExistingUserByEmail";
-import formatErrorString from "../../lib/formatErrorString";
+import Users from "./index.js";
+import encryptLoginToken from "./encryptLoginToken.js";
+import getExistingUserByEmail from "./getExistingUserByEmail.js";
+import formatErrorString from "../../lib/formatErrorString.js";
 
 const addSessionToUser = (userId = null, session = null) => {
   try {

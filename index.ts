@@ -1,8 +1,9 @@
 import express from "express";
-import startup from "./lib/startup";
-import api from "./api/index";
-import middleware from "./middleware/index";
-import logger from "./lib/logger";
+import startup from "./lib/startup.js";
+import api from "./api/index.js";
+import middleware from "./middleware/index.js";
+import logger from "./lib/logger.js";
+import websockets from "./websockets/index.js";
 
 startup()
   .then(() => {
@@ -12,11 +13,13 @@ startup()
     middleware(app);
     api(app);
 
-    app.listen(port, () => {
+    const server = app.listen(port, () => {
       if (process.send) {
         process.send(`Server running at http://localhost:${port}\n\n`);
       }
     });
+
+    websockets(server);
 
     process.on("message", (message) => {
       console.log(message);

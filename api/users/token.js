@@ -1,9 +1,9 @@
 /* eslint-disable consistent-return */
 
-import validateLoginToken from "./validateLoginToken";
-import decryptLoginToken from "./decryptLoginToken";
-import getExistingUserByEmailPassword from "./getExistingUserByEmailPassword";
-import formatErrorString from "../../lib/formatErrorString";
+import validateLoginToken from "./validateLoginToken.js";
+import decryptLoginToken from "./decryptLoginToken.js";
+import getExistingUserByEmailPassword from "./getExistingUserByEmailPassword.js";
+import formatErrorString from "../../lib/formatErrorString.js";
 
 const validateOptions = (options) => {
   try {

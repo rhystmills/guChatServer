@@ -2,9 +2,9 @@ import express from "express";
 import compression from "compression";
 import cookieParser from "cookie-parser";
 import favicon from "serve-favicon";
-import requestMethods from "./requestMethods";
-import cors from "./cors";
-import bodyParser from "./bodyParser";
+import requestMethods from "./requestMethods.js";
+import cors from "./cors.js";
+import bodyParser from "./bodyParser.js";
 
 export default (app) => {
   app.use(requestMethods);

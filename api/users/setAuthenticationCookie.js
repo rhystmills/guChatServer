@@ -1,4 +1,4 @@
-import getBaseAuthenticationCookie from "./getBaseAuthenticationCookie";
+import getBaseAuthenticationCookie from "./getBaseAuthenticationCookie.js";
 
 export default (res = null, authentication = null) => {
   if (!res || !authentication) return null;

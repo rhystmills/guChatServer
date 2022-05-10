@@ -1,5 +1,5 @@
 import cors from "cors";
-import settings from "../lib/settings";
+import settings from "../lib/settings.js";
 
 const urlsAllowedToAccess =
   Object.entries(settings.urls || {}).map(([key, value]) => value) || [];

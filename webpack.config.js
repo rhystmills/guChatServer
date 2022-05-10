@@ -12,7 +12,8 @@ module.exports = {
   experiments: {
     topLevelAwait: true,
   },
-  entry: "./index.js",
+  devtool: 'inline-source-map',
+  entry: "./index.ts",
   output: {
     filename: "index.js",
     path: path.resolve(__dirname, "dist"),
@@ -36,7 +37,15 @@ module.exports = {
           ],
         },
       },
+      {
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
+      },
     ],
+  },
+  resolve: {
+    extensions: ['.tsx', '.ts', '.js'],
   },
   plugins: [
     new CleanWebpackPlugin(),

@@ -1,11 +1,11 @@
-import signup from "../signup";
-import login from "../login";
-import setAuthenticationCookie from "../setAuthenticationCookie";
-import unsetAuthenticationCookie from "../unsetAuthenticationCookie";
-import generateResetToken from "../generateResetToken";
-import resetPassword from "../resetPassword";
-import sendEmail from "../../../lib/email/send";
-import settings from "../../../lib/settings";
+import signup from "../signup.js";
+import login from "../login.js";
+import setAuthenticationCookie from "../setAuthenticationCookie.js";
+import unsetAuthenticationCookie from "../unsetAuthenticationCookie.js";
+import generateResetToken from "../generateResetToken.js";
+import resetPassword from "../resetPassword.js";
+import sendEmail from "../../../lib/email/send.js";
+import settings from "../../../lib/settings.js";
 
 export default {
   signup: (parent, args, context) => {

@@ -1,8 +1,8 @@
 /* eslint-disable consistent-return */
 
 import dayjs from "dayjs";
-import Users from "./index";
-import formatErrorString from "../../lib/formatErrorString";
+import Users from "./index.js";
+import formatErrorString from "../../lib/formatErrorString.js";
 
 const checkIfTokenExpiresInFuture = (tokenExpiresAt = "") => {
   try {
