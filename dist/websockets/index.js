@@ -54,8 +54,6 @@ var handleRequest = function (request) {
             messages.push(request.message);
             updateAllConnectionsWithMessages();
             break;
-        case "connection":
-            break;
         case "draw":
             drawing.push(request.coords);
             updateAllConnectionsWithCoords(request.coords);

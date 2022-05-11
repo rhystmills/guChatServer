@@ -23,16 +23,12 @@ type MessageRequest = {
   message: Message;
 };
 
-type ConnectionRequest = {
-  type: "connection";
-};
-
 type DrawRequest = {
   type: "draw";
   coords: Coords;
 };
 
-type Request = MessageRequest | ConnectionRequest | DrawRequest;
+type Request = MessageRequest | DrawRequest;
 
 const messages: Message[] = [];
 const connections: any[] = [];
@@ -55,8 +51,6 @@ const handleRequest = (request: Request) => {
     case "message":
       messages.push(request.message);
       updateAllConnectionsWithMessages();
-      break;
-    case "connection":
       break;
     case "draw":
       drawing.push(request.coords);
