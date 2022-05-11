@@ -8,6 +8,16 @@ type Message = {
   date: number;
 };
 
+type Coord = {
+  x: number;
+  y: number;
+};
+
+type Coords = {
+  start: Coord;
+  end: Coord;
+};
+
 type MessageRequest = {
   type: "message";
   message: Message;
@@ -17,14 +27,26 @@ type ConnectionRequest = {
   type: "connection";
 };
 
-type Request = MessageRequest | ConnectionRequest;
+type DrawRequest = {
+  type: "draw";
+  coords: Coords;
+};
+
+type Request = MessageRequest | ConnectionRequest | DrawRequest;
 
 const messages: Message[] = [];
 const connections: any[] = [];
+const drawing: Coords[] = [];
 
-const updateAllConnections = () => {
+const updateAllConnectionsWithMessages = () => {
   connections.forEach((connection) =>
-    connection.send(JSON.stringify(messages))
+    connection.send(JSON.stringify({ type: "messages", messages }))
+  );
+};
+
+const updateAllConnectionsWithCoords = (coords: Coords) => {
+  connections.forEach((connection) =>
+    connection.send(JSON.stringify({ type: "draw", coords }))
   );
 };
 
@@ -32,10 +54,13 @@ const handleRequest = (request: Request) => {
   switch (request.type) {
     case "message":
       messages.push(request.message);
-
-      updateAllConnections();
+      updateAllConnectionsWithMessages();
       break;
     case "connection":
+      break;
+    case "draw":
+      drawing.push(request.coords);
+      updateAllConnectionsWithCoords(request.coords);
       break;
   }
 };
@@ -61,8 +86,11 @@ export default async (expressServer: any) => {
     const [_path, params] = connectionRequest?.url?.split("?");
     // const connectionParams = queryString.parse(params);
 
+    drawing.forEach((coords) => {
+      websocketConnection.send(JSON.stringify({ type: "draw", coords }));
+    });
     connections.push(websocketConnection);
-    updateAllConnections();
+    updateAllConnectionsWithMessages();
     // NOTE: connectParams are not used here but good to understand how to get
     // to them if you need to pass data with the connection to identify it (e.g., a userId).
 

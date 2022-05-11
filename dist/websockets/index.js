@@ -37,18 +37,28 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 import { WebSocketServer } from "ws";
 var messages = [];
 var connections = [];
-var updateAllConnections = function () {
+var drawing = [];
+var updateAllConnectionsWithMessages = function () {
     connections.forEach(function (connection) {
-        return connection.send(JSON.stringify(messages));
+        return connection.send(JSON.stringify({ type: "messages", messages: messages }));
+    });
+};
+var updateAllConnectionsWithCoords = function (coords) {
+    connections.forEach(function (connection) {
+        return connection.send(JSON.stringify({ type: "draw", coords: coords }));
     });
 };
 var handleRequest = function (request) {
     switch (request.type) {
         case "message":
             messages.push(request.message);
-            updateAllConnections();
+            updateAllConnectionsWithMessages();
             break;
         case "connection":
+            break;
+        case "draw":
+            drawing.push(request.coords);
+            updateAllConnectionsWithCoords(request.coords);
             break;
     }
 };
@@ -72,8 +82,11 @@ export default (function (expressServer) { return __awaiter(void 0, void 0, void
             var _a;
             var _b = (_a = connectionRequest === null || connectionRequest === void 0 ? void 0 : connectionRequest.url) === null || _a === void 0 ? void 0 : _a.split("?"), _path = _b[0], params = _b[1];
             // const connectionParams = queryString.parse(params);
+            drawing.forEach(function (coords) {
+                websocketConnection.send(JSON.stringify({ type: "draw", coords: coords }));
+            });
             connections.push(websocketConnection);
-            updateAllConnections();
+            updateAllConnectionsWithMessages();
             // NOTE: connectParams are not used here but good to understand how to get
             // to them if you need to pass data with the connection to identify it (e.g., a userId).
             websocketConnection.on("message", requestCallback);
