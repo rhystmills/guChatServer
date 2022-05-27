@@ -35,28 +35,50 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 import { WebSocketServer } from "ws";
+import queryString from "query-string";
 var messages = [];
-var connections = [];
+var users = [];
 var drawing = [];
-var updateAllConnectionsWithMessages = function () {
-    connections.forEach(function (connection) {
-        return connection.send(JSON.stringify({ type: "messages", messages: messages }));
+var updateAllConnectionsWithMessages = function (message) {
+    users.forEach(function (user) {
+        return user.connection.send(JSON.stringify({ type: "messages", messages: [message] }));
     });
 };
 var updateAllConnectionsWithCoords = function (coords) {
-    connections.forEach(function (connection) {
-        return connection.send(JSON.stringify({ type: "draw", coords: coords }));
+    users.forEach(function (user) {
+        return user.connection.send(JSON.stringify({ type: "draw", coords: coords }));
+    });
+};
+var updateAllConnectionsWithUsers = function () {
+    users.forEach(function (user) {
+        return user.connection.send(JSON.stringify({
+            type: "users",
+            users: users.map(function (user) {
+                return {
+                    name: user.name,
+                    id: user.id,
+                };
+            }),
+        }));
     });
 };
 var handleRequest = function (request) {
     switch (request.type) {
         case "message":
             messages.push(request.message);
-            updateAllConnectionsWithMessages();
+            updateAllConnectionsWithMessages(request.message);
             break;
         case "draw":
             drawing.push(request.coords);
             updateAllConnectionsWithCoords(request.coords);
+            break;
+        case "name":
+            users.forEach(function (user) {
+                if (user.id === request.id) {
+                    user.name = request.name;
+                }
+            });
+            updateAllConnectionsWithUsers();
             break;
     }
 };
@@ -79,15 +101,25 @@ export default (function (expressServer) { return __awaiter(void 0, void 0, void
         onConnection = function (websocketConnection, connectionRequest) {
             var _a;
             var _b = (_a = connectionRequest === null || connectionRequest === void 0 ? void 0 : connectionRequest.url) === null || _a === void 0 ? void 0 : _a.split("?"), _path = _b[0], params = _b[1];
-            // const connectionParams = queryString.parse(params);
+            var connectionParams = queryString.parse(params);
+            var userId = connectionParams.userId.toString();
             drawing.forEach(function (coords) {
                 websocketConnection.send(JSON.stringify({ type: "draw", coords: coords }));
             });
-            connections.push(websocketConnection);
-            updateAllConnectionsWithMessages();
+            users.push({
+                connection: websocketConnection,
+                id: Number(userId),
+            });
+            websocketConnection.send(JSON.stringify({ type: "messages", messages: messages }));
+            updateAllConnectionsWithUsers();
             // NOTE: connectParams are not used here but good to understand how to get
             // to them if you need to pass data with the connection to identify it (e.g., a userId).
+            var onClose = function (a, b, c) {
+                users = users.filter(function (user) { return user.connection !== websocketConnection; });
+                updateAllConnectionsWithUsers();
+            };
             websocketConnection.on("message", requestCallback);
+            websocketConnection.on("close", onClose);
         };
         websocketServer.on("connection", onConnection);
         return [2 /*return*/, websocketServer];

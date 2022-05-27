@@ -1,6 +1,5 @@
 import express from "express";
 import startup from "./lib/startup.js";
-import api from "./api/index.js";
 import middleware from "./middleware/index.js";
 import logger from "./lib/logger.js";
 import websockets from "./websockets/index.js";
@@ -11,7 +10,6 @@ startup()
     const port = process.env.PORT || 5001;
 
     middleware(app);
-    api(app);
 
     const server = app.listen(port, () => {
       if (process.send) {

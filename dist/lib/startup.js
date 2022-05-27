@@ -36,19 +36,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 import logger from "./logger.js";
-import "../api/fixtures/index.js";
+// import "../api/fixtures/index.js";
 var handleProcessEvents = function () {
     try {
-        process.on("exit", function () { return __awaiter(void 0, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                if (process.mongodb &&
-                    process.mongodb.connection &&
-                    process.mongodb.connection.isConnected()) {
-                    process.mongodb.connection.close();
-                }
-                return [2 /*return*/];
-            });
-        }); });
         process.on("uncaughtException", function (error) {
             logger.error(error);
             console.warn(error);
